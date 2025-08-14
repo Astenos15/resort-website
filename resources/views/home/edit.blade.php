@@ -15,7 +15,7 @@
                 <div class="flex flex-col mb-6">
                     <label for="hero_text" class="py-2 font-bold">Write Text</label>
                     <input type="text" id="hero_text" name="hero_text" class="bg-slate-100 p-2"
-                        value="{{ old('hero_text', $home->hero_text) }}">
+                        value="{{ old('hero_text', $home->hero_text ?? '') }}">
                     @error('hero_text')
                         <p class="text-red-500 text-xs">{{ $message }}</p>
                     @enderror

@@ -24,8 +24,12 @@ class HomeController extends Controller
     public function edit()
     {
         $home = Home::first();
-        return view('home.edit', ['home' => $home]);
+
+        return view('home.edit', [
+            'home' => $home
+        ]);
     }
+
     /**
      * Update the specified resource in storage.
      */
