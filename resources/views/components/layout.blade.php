@@ -14,8 +14,8 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     {{-- Builds --}}
     @production
-        <link rel="stylesheet" href="/build/assets/app-CI2nLhTD.css">
-        <script src="/build/assets/app-wk0EiG6y.js"></script>
+        <link rel="stylesheet" href="{{ vite_asset('resources/js/app.js', 'css') }}">
+        <script src="{{ vite_asset('resources/js/app.js') }}" defer></script>
     @else
         @vite('resources/js/app.js')
     @endproduction
