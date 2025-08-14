@@ -14,11 +14,12 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     {{-- Builds --}}
     @production
-        <link rel="stylesheet" href="/build/assets/app-DfbXF_Ke.css.css">
-        <script src="/build/assets/app-C0G0cght.js" defer></script>
+        <link rel="stylesheet" href="{{ asset('build/assets/app-CI2nLhTD.css') }}">
+        <script src="{{ asset('build/assets/app-wk0EiG6y.js') }}" defer></script>
     @else
         @vite('resources/js/app.js')
     @endproduction
+
     <title>Resort</title>
 </head>
 
