@@ -7,8 +7,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 Route::get('/storage/{path}', function ($path) {
+    // Prevent directory traversal attacks like ../../etc/passwd
+    if (Str::contains($path, ['..', './', '//'])) {
+        abort(403, 'Forbidden');
+    }
+
     $filePath = 'public/' . $path; // maps to storage/app/public
 
     if (!Storage::exists($filePath)) {
@@ -18,7 +24,7 @@ Route::get('/storage/{path}', function ($path) {
     $lastModified = Storage::lastModified($filePath);
     $etag = md5($filePath . $lastModified);
 
-    // Handle browser cache
+    // Browser cache check
     if (
         request()->header('If-None-Match') === $etag ||
         strtotime(request()->header('If-Modified-Since')) === $lastModified
