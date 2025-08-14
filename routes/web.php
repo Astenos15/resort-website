@@ -6,41 +6,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
-Route::get('/storage/{path}', function ($path) {
-    // Prevent directory traversal attacks like ../../etc/passwd
-    if (Str::contains($path, ['..', './', '//'])) {
-        abort(403, 'Forbidden');
-    }
-
-    $filePath = 'public/' . $path; // maps to storage/app/public
-
-    if (!Storage::exists($filePath)) {
-        abort(404);
-    }
-
-    $lastModified = Storage::lastModified($filePath);
-    $etag = md5($filePath . $lastModified);
-
-    // Browser cache check
-    if (
-        request()->header('If-None-Match') === $etag ||
-        strtotime(request()->header('If-Modified-Since')) === $lastModified
-    ) {
-        return response()->noContent(304);
-    }
-
-    $mimeType = Storage::mimeType($filePath);
-    $fileContent = Storage::get($filePath);
-
-    return response($fileContent, 200)
-        ->header('Content-Type', $mimeType)
-        ->header('Cache-Control', 'public, max-age=31536000') // 1 year cache
-        ->header('ETag', $etag)
-        ->header('Last-Modified', gmdate('D, d M Y H:i:s', $lastModified) . ' GMT');
-})->where('path', '.*');
 
 // Homepage
 Route::get('/', [HomeController::class, 'index']);
