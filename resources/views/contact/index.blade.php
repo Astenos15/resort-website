@@ -12,11 +12,11 @@
             <div
                 class="prose mb-6 [&>ul]:list-disc [&>ul]:pl-[15px] [&>ul]:font-semibold [&>ul]:text-amber-600 leading-8 tracking-wide">
                 <h2 class="text-2xl font-bold text-amber-600 mb-2">How to Book a Room</h2>
-                {!! $contact->booking_text !!}
+                {!! $contact->booking_text ?? null !!}
             </div>
             <div class="mb-8 leading-8 tracking-wide">
                 <h2 class="text-2xl font-bold text-amber-600 mb-2">How to find us</h2>
-                {!! $contact->directions_text !!}
+                {!! $contact->directions_text ?? null !!}
             </div>
             <div>
                 <p class="font-semibold"><em>"We look forward to welcoming you to our resort! Thank you for your
